@@ -42,3 +42,26 @@ JavaScript에서 HTML 요소에 접근하면서, ```"Hello! From JS!"```가 뜬�
 1. 우리는 HTMl과 JavaScript를 연결하기 위해서 아무것도 하지 않아도된다는 것! 이미 연결되어있다는것 ㅎㅎ
 2. HTMl에서 여러 정보를 가져올 수 있다는 것 어디서?
 3. <b>JavaScript 코드에서</b> 그 정보들을 볼 수 있다는 것 + HTML의 항목도 추가할 수 있다! (변경 가능)
+
+
+<h2>최종 코드</h2>
+<b>app.js 파일</b>
+```
+document.title = "Hello! From JS!"
+```
+<b>index.html 파일</b>
+```
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content = "IE=edge">
+        <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+        <link rel = "stylesheet", href="style.css"/>
+        <title>Hello! From HTML!</title>
+    </head>
+    <body>
+        <script src = "app.js" ></script>
+    </body>
+</html>
+```
