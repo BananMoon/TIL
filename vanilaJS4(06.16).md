@@ -46,10 +46,12 @@ JavaScript에서 HTML 요소에 접근하면서, ```"Hello! From JS!"```가 뜬�
 
 <h2>최종 코드</h2>
 <b>app.js 파일</b>
+
 ```
 document.title = "Hello! From JS!"
 ```
 <b>index.html 파일</b>
+
 ```
 <!DOCTYPE html>
 <html lang="en">
