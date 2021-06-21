@@ -102,9 +102,8 @@ h1 {
 }
 ```
 
-이제 이 active 클래스를 html에 적용해보려면! javascript로 가보자.
-javascript의 click 이벤트 함수에
-`h1.className = 'active'`를 추가하면 click 이벤트가 발생할 때 해당 active클래스가 적용되서
+이제 이 active 클래스를 html에 적용해보려면! javascript로 가보자.<br>
+javascript의 click 이벤트 함수에 `h1.className = 'active'`를 추가하면 click 이벤트가 발생할 때 해당 active클래스가 적용되서<br>
 potato 색으로 변한다!
 
 - javascript가 HTML을 조정하면, css가 그 HTML을 바라보는 것으로 돌아가는 것이다. 
@@ -120,3 +119,4 @@ function handleH1Click() {
 ```
 - `.active{}` 클래스는 다른 이름으로도 바꿔줄 수 있다.
 - `.clicked{}` 도 가능하고~ 바꿔주게되면 js에서도 바꿔줘야 함! `h1.className === 'clicked'`로..
+
