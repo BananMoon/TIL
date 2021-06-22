@@ -2,7 +2,7 @@
 
 ## CSS in JavaScript part3
 
-이전 글에서는 click 이벤트가 발생할 때 h1의 className이 사라지고~생기도록~ 했지만, 문제가 될 수 있는 방식이기 때문에! 
+이전 글에서는 click 이벤트가 발생할 때 h1의 className이 사라지고~ 생기도록~ 했지만, 문제가 될 수 있는 방식이기 때문에! 
 
 이번에는 **classList**를 사용해보자. class 들을 **목록**으로 작업할 수 있는 것!
 
