@@ -1,6 +1,5 @@
 <h1> Today I Learned </h1>
 1. Chrome app with VanilaJS (2)<br>
-2. Kotlin (2)
 
 <h2> 1. Chrome app with VanilaJS (2)</h2>
 
@@ -76,5 +75,3 @@ body{
   에서 확인할 수 있다.
 
 - 이제 Console창은 항상 열어두는 걸 습관화하자! (에러 확인이 바로 가능하니까~)
-
-<h2> 2. Kotlin (2)</h2>
