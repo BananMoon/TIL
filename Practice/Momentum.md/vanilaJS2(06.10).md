@@ -45,7 +45,7 @@ body{
 ```
 - 웹 브라우저와 css&js를 연결시키는 방법은 뭘까? 바로 <b>HTML</b>이다.<br>
   브라우저는 HTML을 열고, HTML은 CSS와 JS를 가져오는 것! 즉, HTMl이 접착제!
-- 즉, 파일에서는 브라우저에서 index.html 파일을 여는 것.
+- 즉, 브라우저에서 index.html 파일을 여는 것.
 
 ### <HTML과 JavaScript를 연결하는 방법>
 - 위에서 html 파일을 통해 브라우저와 연결을 한다고 했다. css파일과의 연동은 <head></head> 사이에서, javascript와의 연동은 <body></body> 사이에서 연결을 진행한다.
