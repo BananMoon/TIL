@@ -1,3 +1,4 @@
+## 0. Docker
 - 애플리케이션(application)을 개발하고 출시(shipping), 작동시키는데 사용되는 오픈 platform이다.
 - 도커(Dockdr)를 사용하면 나의 infra를 하나의 관리되는 애플리케이션처럼 다룰 수 있다.
 - 코드와 테스트, 배포를 빠르게 하도록 도와주고 코드 작성과 실행 간의 사이클(cycle)을 줄여준다.
@@ -7,12 +8,13 @@
 1. 도커 이미지를 도커 허브(Hub) 및 Google Container Registry에서 가져오기
 2. 도커 이미지를 Google Container Registry로 푸시하기
 
-Google Cloud Shell 
+```
+🍆 Google Cloud Shell 🍆
 - 명령줄을 통해 GCP(Google Cloud Platform) 리소스에 엑세스할 수 있다.
 - `gcloud` 명령줄 도구로 여러 기능을 지원한다.
     - ex) 사용중인 계정 이름 목록 표시하기 - `gcloud auth list`
     - ex) 프로젝트 ID 목록 표시하기 - `gcloud config list project`
-    
+``` 
     
 ## 1. hello-world 컨테이너 실행하기
 ```shell
@@ -285,6 +287,9 @@ CONTAINER ID   IMAGE          COMMAND         CREATED          STATUS          P
 e19535e7abaf   node-app:0.3   "node app.js"   8 seconds ago    Up 7 seconds    0.0.0.0:8080->80/tcp   my-first-app-ver3
 d08796cccb56   node-app:0.1   "node app.js"   19 minutes ago   Up 19 minutes   0.0.0.0:4000->80/tcp   my-first-app
 ```
+
+다른 터미널에서 접속해보면 다음과 같이 다르게 출력된다.
+![image](https://user-images.githubusercontent.com/66311276/177313346-7d8cd7d9-1e4d-4e02-9357-3ad8f6a043af.png)
 
 
 ## 6. 디버깅
