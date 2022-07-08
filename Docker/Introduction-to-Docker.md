@@ -51,6 +51,11 @@ This message shows that your installation appears to be working correctly.
 ```shell
 docker images
 ```
+> Command output
+```
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+hello-world   latest    feb5d9fea6a5   9 months ago   13.3kB
+```
 이때 이미지ID는 **SHA256 해시** 형식이다.
 해당 필드에서는 프로비저닝된 도커 이미지를 지정하는 것이다.
 
@@ -81,12 +86,12 @@ docker images
 ```
 mkdir test && cd test
 ```
-2. DockerFile`이라는 파일명으로 만들어서 아래 내용을 입력한다.
+2. `DockerFile`이라는 파일명으로 만들어서 아래 내용을 입력한다.
 Docker 데몬에 이미지를 빌드하는 방법을 입력한다. (# 은 주석)
 - 파일을 만드는 방법은 `cat`을 이용한다.
 - 아래와 같이 `EOF`를 붙이면 여러줄에 작성할 수 있다. 마지막에 EOF를 작성하면 끝난다.
 ```
-cat > app.js <<EOF
+cat > Dockerfile <<EOF
 # 공식 노드 런타임을 상위 이미지로 사용합니다. (노드 버전 6의 공식 Docker 이미지)
 FROM node:6
 # 컨테이너의 작업 디렉토리를 /app으로 설정합니다.
@@ -138,6 +143,7 @@ hello-world   latest    feb5d9fea6a5   9 months ago   13.3kB
 <details><summary>Command Output</summary>
 <div>
 DockerFile에 입력한 명령줄들이 순차적으로 실행되면서 빌드됩니다.
+
 ```
 Sending build context to Docker daemon  3.072kB
 Step 1/5 : FROM node:6
@@ -181,6 +187,7 @@ docker images
 
 <details><summary>Command Output</summary>
 <div>
+
 - node는 기본 이미지, node-app은 방금 내가 빌드한 이미지이다.
 - node-app을 제거해야 node도 제거된다.
 - `SIZE`는 VM에 비해 상대적으로 작은데, `node:slim`이나 `node:alpine`과 같은 노드 이미지의 버전을 사용하면 더 작은 이미지를 제공해서 이식성이 높아진다.
@@ -349,176 +356,9 @@ docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}
         "HostsPath": "/var/lib/docker/containers/d08796cccb562b6302bdf97cda3a895732d8bcbf74c9bfd591805e71a3ef9cd2/hosts",
         "LogPath": "/var/lib/docker/containers/d08796cccb562b6302bdf97cda3a895732d8bcbf74c9bfd591805e71a3ef9cd2/d08796cccb562b6302bdf97cda3a895732d8bcbf74c9bfd591805e71a3ef9cd2-json.log",
         "Name": "/my-first-app",
-        "RestartCount": 0,
-        "Driver": "overlay2",
-        "Platform": "linux",
-        "MountLabel": "",
-        "ProcessLabel": "",
-        "AppArmorProfile": "docker-default",
-        "ExecIDs": null,
-        "HostConfig": {
-            "Binds": null,
-            "ContainerIDFile": "",
-            "LogConfig": {
-                "Type": "json-file",
-                "Config": {}
-            },
-            "NetworkMode": "default",
-            "PortBindings": {
-                "80/tcp": [
-                    {
-                        "HostIp": "",
-                        "HostPort": "4000"
-                    }
-                ]
-            },
-            "RestartPolicy": {
-                "Name": "no",
-                "MaximumRetryCount": 0
-            },
-            "AutoRemove": false,
-            "VolumeDriver": "",
-            "VolumesFrom": null,
-            "CapAdd": null,
-            "CapDrop": null,
-            "CgroupnsMode": "host",
-            "Dns": [],
-            "DnsOptions": [],
-            "DnsSearch": [],
-            "ExtraHosts": null,
-            "GroupAdd": null,
-            "IpcMode": "private",
-            "Cgroup": "",
-            "Links": null,
-            "OomScoreAdj": 0,
-            "PidMode": "",
-            "Privileged": false,
-            "PublishAllPorts": false,
-            "ReadonlyRootfs": false,
-            "SecurityOpt": null,
-            "UTSMode": "",
-            "UsernsMode": "",
-            "ShmSize": 67108864,
-            "Runtime": "runc",
-            "ConsoleSize": [
-                0,
-                0
-            ],
-            "Isolation": "",
-            "CpuShares": 0,
-            "Memory": 0,
-            "NanoCpus": 0,
-            "CgroupParent": "",
-            "BlkioWeight": 0,
-            "BlkioWeightDevice": [],
-            "BlkioDeviceReadBps": null,
-            "BlkioDeviceWriteBps": null,
-            "BlkioDeviceReadIOps": null,
-            "BlkioDeviceWriteIOps": null,
-            "CpuPeriod": 0,
-            "CpuQuota": 0,
-            "CpuRealtimePeriod": 0,
-            "CpuRealtimeRuntime": 0,
-            "CpusetCpus": "",
-            "CpusetMems": "",
-            "Devices": [],
-            "DeviceCgroupRules": null,
-            "DeviceRequests": null,
-            "KernelMemory": 0,
-            "KernelMemoryTCP": 0,
-            "MemoryReservation": 0,
-            "MemorySwap": 0,
-            "MemorySwappiness": null,
-            "OomKillDisable": false,
-            "PidsLimit": null,
-            "Ulimits": null,
-            "CpuCount": 0,
-            "CpuPercent": 0,
-            "IOMaximumIOps": 0,
-            "IOMaximumBandwidth": 0,
-            "MaskedPaths": [
-                "/proc/asound",
-                "/proc/acpi",
-                "/proc/kcore",
-                "/proc/keys",
-                "/proc/latency_stats",
-                "/proc/timer_list",
-                "/proc/timer_stats",
-                "/proc/sched_debug",
-                "/proc/scsi",
-                "/sys/firmware"
-            ],
-            "ReadonlyPaths": [
-                "/proc/bus",
-                "/proc/fs",
-                "/proc/irq",
-                "/proc/sys",
-                "/proc/sysrq-trigger"
-            ]
-        },
-        "GraphDriver": {
-            "Data": {
-                "LowerDir": "/var/lib/docker/overlay2/7c0be2a763edba955f256af87c9a72c0a1a4de14108979209f7d4875aba59843-init/diff:/var/lib/docker/overlay2/3579c8062856488e663274a9e7784b082ee0c7fef72af34791a4d2dc949548eb/diff:/var/lib/docker/overlay2/363d5312da0b3ac8fc9dd81832e721953ebe17b587b60c4a740f7a4b0e3a5b40/diff:/var/lib/docker/overlay2/87323a2cad2ef318dba60bb437c68a6530ac29f60958f2e663bef0a0b85dd029/diff:/var/lib/docker/overlay2/e891c23a911cfaac2cebfe1570395662f55dcc7200d83a2b35df43b6d7b71066/diff:/var/lib/docker/overlay2/bcd6649de2cfcd8f208165656dd23d9b5b773923592b149d86f8bf73551fe1cd/diff:/var/lib/docker/overlay2/3d182d0c24db7e62e096a34cc5c2b3e97d84926b14f9c77cf186bda3e7940332/diff:/var/lib/docker/overlay2/8f05a02fd418e6fe227d32c20c0d5577a74be40c43d49085875aee1e12c60600/diff:/var/lib/docker/overlay2/c872d1f03abf433d145075036332b43769c21d5fedacee49400b6da4eb1c69b5/diff:/var/lib/docker/overlay2/22c80aa9d7a0d40464360c88048c75121463e89244f59e555090483d173fe472/diff:/var/lib/docker/overlay2/e94d882e3ddc3d5405ce2c3d8b187ea3a8a2b07fba7c368108f248653d0c1cf4/diff",
-                "MergedDir": "/var/lib/docker/overlay2/7c0be2a763edba955f256af87c9a72c0a1a4de14108979209f7d4875aba59843/merged",
-                "UpperDir": "/var/lib/docker/overlay2/7c0be2a763edba955f256af87c9a72c0a1a4de14108979209f7d4875aba59843/diff",
-                "WorkDir": "/var/lib/docker/overlay2/7c0be2a763edba955f256af87c9a72c0a1a4de14108979209f7d4875aba59843/work"
-            },
-            "Name": "overlay2"
-        },
-        "Mounts": [],
-        "Config": {
-            "Hostname": "d08796cccb56",
-            "Domainname": "",
-            "User": "",
-            "AttachStdin": false,
-            "AttachStdout": false,
-            "AttachStderr": false,
-            "ExposedPorts": {
-                "80/tcp": {}
-            },
-            "Tty": false,
-            "OpenStdin": false,
-            "StdinOnce": false,
-            "Env": [
-                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
-                "NODE_VERSION=6.17.1",
-                "YARN_VERSION=1.15.2"
-            ],
-            "Cmd": [
-                "node",
-                "app.js"
-            ],
-            "Image": "node-app:0.1",
-            "Volumes": null,
-            "WorkingDir": "/app",
-            "Entrypoint": null,
-            "OnBuild": null,
-            "Labels": {}
-        },
-        "NetworkSettings": {
-            "Bridge": "",
-            "SandboxID": "25594fef219c2018036b67c90a9e358fc97ae240085612b1ed4c105c038e4a12",
-            "HairpinMode": false,
-            "LinkLocalIPv6Address": "",
-            "LinkLocalIPv6PrefixLen": 0,
-            "Ports": {
-                "80/tcp": [
-                    {
-                        "HostIp": "0.0.0.0",
-                        "HostPort": "4000"
-                    }
-                ]
-            },
-            "SandboxKey": "/var/run/docker/netns/25594fef219c",
-            "SecondaryIPAddresses": null,
-            "SecondaryIPv6Addresses": null,
-            "EndpointID": "0ca7f9041fedde2a4e7eedc18c7ee2eaf1ea9e350ad91c19f0b3c9ce8c19bf92",
-            "Gateway": "172.18.0.1",
-            "GlobalIPv6Address": "",
-            "GlobalIPv6PrefixLen": 0,
-            "IPAddress": "172.18.0.2",
-            "IPPrefixLen": 16,
-            "IPv6Gateway": "",
+        .
+        .
+        .
             "MacAddress": "02:42:ac:12:00:02",
             "Networks": {
                 "bridge": {
@@ -548,10 +388,100 @@ docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}
 ---
 
 ## 7. 게시
+- 이미지를 Google Container Registry(GCR)로 푸시한 뒤, 모든 컨테이너와 이미지를 제거하자.
+- 그후 새로운 환경을 시뮬레이션한 다음 컨테이너를 가져와서 실행한다. => 도커 컨테이너의 이식성을 보여준다.
+- gcr에서 호스팅하는 비공개 레지스트리에 이미지를 푸시하려면 **이미지에 레지스트리 이름을 태그**해야 한다.
+<br>
 
+###  ✋ GCR에서 호스팅하는 비공개 레지스트리에 이미지 푸시하는 방법 ✋
+**1. 이미지에 레지스트리 이름으로 태그를 지정한다.**
+- 형식 : `{hostname}/{project-id}/{image이름}:{tag}`
+- 예 : `gcr.io/qwiklabs-gcp-03-5e9a5eaa9d7b/node-app:0.1`
 
+> 프로젝트 ID 찾기 `gcloud config list projcet`
+
+**2. 푸시할 레지스트리 이름(node-app:0.1)을 태그한다.**  (태그 `node-app:0.1`을 이용)
+
+- 형식 : `docker tag {image이름}:{tag} {hostname}/{project-id}/{image이름}:{tag}`
+- 예 : ` docker tag node-app:0.1 gcr.io/qwiklabs-gcp-03-5e9a5eaa9d7b/node-app:0.1`
+
+Command Output
+```
+REPOSITORY                                     TAG       IMAGE ID       CREATED          SIZE
+gcr.io/qwiklabs-gcp-03-5e9a5eaa9d7b/node-app   0.1       989bdcbdc640   13 minutes ago   884MB
+```
+
+**3. 이미지를 gcr에 푸시한다.**
+```
+docker push gcr.io/qwiklabs-gcp-03-5e9a5eaa9d7b/node-app:0.1
+```
+
+Command Output
+```
+The push refers to repository [gcr.io/qwiklabs-gcp-03-5e9a5eaa9d7b/node-app]
+35d08f23208d: Pushed
+61c5bcfcfdc3: Pushed
+f39151891503: Pushed
+f1965d3c206f: Pushed
+a27518e43e49: Layer already exists
+910d7fd9e23e: Layer already exists
+4230ff7f2288: Layer already exists
+2c719774c1e1: Layer already exists
+ec62f19bb3aa: Layer already exists
+f94641f1fe1f: Layer already exists
+0.1: digest: sha256:c5e8a19bde4cf91f2fd787f0f5856833a8b1532937134280b75cea760a02416d size: 2422
+```
+
+**4. 모든 컨테이너와 이미지를 제거한다.** 새로운 환경을 시뮬레이션하기 위해!
+
+```
+docker pull gcr.io/qwiklabs-gcp-03-5e9a5eaa9d7b/node-app:0.1
+0.1: Pulling from qwiklabs-gcp-03-5e9a5eaa9d7b/node-app
+c5e155d5a1d1: Pull complete
+221d80d00ae9: Pull complete
+4250b3117dca: Pull complete
+3b7ca19181b2: Pull complete
+425d7b2a5bcc: Pull complete
+69df12c70287: Pull complete
+ea2f5386a42d: Pull complete
+d421d2b3c5eb: Pull complete
+05afad349094: Pull complete
+2f966eb8710e: Pull complete
+Digest: sha256:c5e8a19bde4cf91f2fd787f0f5856833a8b1532937134280b75cea760a02416d
+Status: Downloaded newer image for gcr.io/qwiklabs-gcp-03-5e9a5eaa9d7b/node-app:0.1
+gcr.io/qwiklabs-gcp-03-5e9a5eaa9d7b/node-app:0.1
+```
+웹 브라우저의 이미지 레지스트리에서 GCR에 이미지가 있는지 확인할 수 있다. 아래와 같은 모습이다.
+
+- 컨테이너 중지
+```
+docker stop $(docker ps -q)
+docker rm $(docker ps -aq)
+```
+
+- 이미지 제거
+```
+docker rmi node-app:0.1 gcr.io/[project-id]/node-app node-app:0.1
+docker rmi node:6
+docker rmi $(docker images -aq) # remove remaining images
+docker images
+```
+
+**5. 새로운 환경에서 이미지를 푸시하여 실행한다.**
+
+```
+docker pull gcr.io/qwiklabs-gcp-03-5e9a5eaa9d7b/node-app:0.1
+docker run -p 4000:80 -d gcr.io/qwiklabs-gcp-03-5e9a5eaa9d7b/node-app:0.1
+curl http://localhost:4000
+```
+
+아래와 같이 잘 실행한다.
+```
+Hello World
+```
+---
 
 ### Q&A
-1. `Dockerfile`이라는 파일명을 이용해서 빌드를 해야하는 거같은데 도커를 빌드하는데 사용되는 파일명으로 지정된 건가?
-
-> Dockerfile : Docker 데몬에 이미지를 빌드하는 방법을 지시하는 파일
+1. `Dockerfile`이라는 파일명을 이용해서 빌드를 해야하는 거같은데 도커를 빌드하는데 사용되는 파일명으로 지정된 건가?<br>
+A. Yes. Dockerfile은 Docker 데몬에 도커 이미지(Docker Image)를 빌드하기 위한 설정 파일(스크립트)이다.
+> 참고) [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
