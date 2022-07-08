@@ -456,7 +456,8 @@ Digest: sha256:c5e8a19bde4cf91f2fd787f0f5856833a8b1532937134280b75cea760a02416d
 Status: Downloaded newer image for gcr.io/qwiklabs-gcp-03-5e9a5eaa9d7b/node-app:0.1
 gcr.io/qwiklabs-gcp-03-5e9a5eaa9d7b/node-app:0.1
 ```
-웹 브라우저의 이미지 레지스트리에서 GCR에 이미지가 있는지 확인할 수 있다. 아래와 같은 모습이다.
+웹 브라우저의 이미지 레지스트리에서 GCR에 이미지가 있는 것을 확인할 수 있다. 아래와 같은 모습이다.
+![image](https://user-images.githubusercontent.com/66311276/177917650-f8eeaa7f-8960-4062-85f2-60c4df3c3235.png)
 
 - 컨테이너 중지
 ```
