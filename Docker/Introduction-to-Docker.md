@@ -9,13 +9,20 @@
 2. 도커 이미지를 Google Container Registry로 푸시하기
 
 ```
+🍆도커 허브(Docker Hub)🍆
+Docker에서 운영하는 Docker 이미지를 보관하는 저장소 서비스로, 컨테이너 이미지를 찾고 공유할 수 있습니다.
+```
+
+```
 🍆 Google Cloud Shell 🍆
 - 명령줄을 통해 GCP(Google Cloud Platform) 리소스에 엑세스할 수 있다.
 - `gcloud` 명령줄 도구로 여러 기능을 지원한다.
     - ex) 사용중인 계정 이름 목록 표시하기 - `gcloud auth list`
     - ex) 프로젝트 ID 목록 표시하기 - `gcloud config list project`
 ``` 
-    
+<br>
+
+---
 ## 1. hello-world 컨테이너 실행하기
 ```shell
 docker run hello-world
@@ -34,9 +41,10 @@ Status: Downloaded newer image for hello-world:latest
 </div>
 </details>
 
-위 명령어를 실행하면 Docker 데몬이 로컬에서 이미지를 찾고, 없으면 공개(public) 레즈스트리(도커 허브)에서 찾아서 가져와서 **이미지로부터 컨테이너를 생성해서 실행**시킨다.
+위 명령어를 실행하면 Docker 데몬은 일단 본인의 로컬 컴퓨터에서 이미지를 찾고, 없으면 도커 허브(Docker Hub)와 같은 공개(public) 레즈스트리에서 해당 이름의 도커 이미지를 찾아서 다운받는다.
+- 그리고 다운받은 **이미지로부터 컨테이너를 생성해서 실행**시킨다.
 - 위 명령어를 다시 실행해보면, 도커 데몬이 로컬 레즈스트리에서 이미지를 찾아서 이 이미지에서 컨테이너를 실행한다는 결과가 나온다.<br>
-(즉 도커 데몬이 무조건 도커 허브에서 가져올 필요는 없다.) 
+(즉 도커 데몬이 무조건 도커 허브에서 가져올 필요는 없다는 것!) 
 <details><summary>Command Output</summary>
 <div>
 
@@ -65,8 +73,9 @@ hello-world   latest    feb5d9fea6a5   9 months ago   13.3kB
 > 사용자의 요구에 맞게 시스템 자원을 할당, 배치, 배포해 두었다가 필요 시 시스템을 즉시 사용할 수 있는 상태로 **미리 준비**해 두는 것
 
 > 명령어
-> - docker ps : 실행 중인 컨테이너 조회
-> - docker ps -a : 실행 완료된 컨테이너까지 조회
+> - docker ps : 실행 중인 **컨테이너** 조회
+>  - 컨테이너가 철거되었다는 것이 아닌, 내부(bash session)에 접속해서 작업이 진행 중인 컨테이너만을 보여주는 명령어이다. 
+> - docker ps -a : 현재 중지된(작업 진행X) 컨테이너까지 조회
 > <details><summary>Command Output</summary>
 > <div>
 > 도커가 컨테이너를 식별하기 위한 UUID로 <i>CONTAINER_ID</i>와 관련 메타데이터가 표시된다. 랜덤으로 지정된 <i>NAMES</i>는 특정 이름으로 지정할 수도 있다. (<i>docker run --name [container-name] hello-world</i>)
@@ -88,7 +97,11 @@ hello-world   latest    feb5d9fea6a5   9 months ago   13.3kB
 ```
 mkdir test && cd test
 ```
-2. `DockerFile`이라는 파일명으로 만들어서 아래 내용을 입력한다.
+2. `Dockerfile`이라는 파일명으로 만들어서 아래 내용을 입력한다.
+> Dockerfile?
+> 컨테이너의 내부(bash session)에 들어가서 명령하기에는, 서비스를 돌리는 것과 같은 복잡한 작업들을 매번 하기 번거롭다. 그래서 섬세하게 컨테이너를 활용하기 위해 `Dockerfile`을 활용한다.
+
+
 Docker 데몬에 이미지를 빌드하는 방법을 입력한다. (# 은 주석)
 - 파일을 만드는 방법은 `cat`을 이용한다.
 - 아래와 같이 `EOF`를 붙이면 여러줄에 작성할 수 있다. 마지막에 EOF를 작성하면 끝난다.
@@ -106,6 +119,8 @@ EXPOSE 80
 CMD ["node", "app.js"]
 EOF
 ```
+
+> 추가) `RUN` 명령어는 이미지를 생성하는 과정에서 실행되는 것, `CMD` 명령어는 이미지로부터 컨테이너가 만들어져 가동될 때 실행되는 명령어이다.
 
 3. 노드 애플리케이션을 작성한다. 
 > app.js : 간단한 HTTP 서버로 포트 80을 수신하고 'Hello World'를 반환하는 애플리케이션
@@ -184,7 +199,7 @@ Successfully tagged node-app:0.1
 
 이제 빌드된 이미지를 확인해보자.
 ```
-docker images
+docker images   // 이미지 조회
 ```
 
 <details><summary>Command Output</summary>
@@ -206,14 +221,16 @@ node          6         ab290b853066   3 years ago          884MB
 
 ## 5. 컨테이너 실행
 빌드한 이미지를 기반으로 컨테이너를 실행하자.
+- run : 다운받은 이미지를 (해동해서ㅋㅋ) (1개 이상의) 컨테이너로 만드는 명령어 (이미지는 컨테이너를 생산하는 틀이라 생각한다.)
 - `-p` : 컨테이너의 80번 포트에 호스트의 4000번 포트를 매핑하는 플래그
+  - ✋도커 외부 포트(4000)와 도커 내부 환경의 포트(80)를 연결해주는 것이다.
 - `--name` : 컨테이너 이름을 지정하는 플래그
 ```
 docker run -p 4000:80 --name my-first-app node-app:0.1
 ```
 
-`서버 작동 at http://0.0.0.0:80/` 이라고 뜨네요!
 
+`서버 작동 at http://0.0.0.0:80/` 이라고 뜬다!
 이제 다른 터미널에서 접속해보겠다.
 ```
 curl http://localhost:4000
@@ -229,7 +246,7 @@ docker stop my-first-app && docker rm my-first-app
 백그라운드 실행!! (`-d` 플래그만 추가하면 된다.)
 ```
 docker run -p 4000:80 --name my-first-app -d node-app:0.1
-docker ps   // 컨테이너 실행 중인지 확인!
+docker ps   // 실행 중인 컨테이너 확인!
 ```
 
 Command output
@@ -300,14 +317,14 @@ d08796cccb56   node-app:0.1   "node app.js"   19 minutes ago   Up 19 minutes   0
 
 
 ## 6. 디버깅
-1. 현재 동작(running) 중인 컨테이너 내에서 대화식 Bash session을 시작할 수 있다.
+1. 현재 동작(running) 중인 **컨테이너 내**에서 대화식 Bash session을 시작할 수 있다. (배시 셸 실행)
 ```
 docker exec -it [container_id] bash
 ```
 
 이때 Dockerfile`에 명시된 `/app` 디렉토리 `WORKDIR`에서 bash가 시작된다.<br>
-이제 debug할 컨테이너 내부에서 대화식 shell session을 할 수 있다.
-
+이제 debug할 컨테이너 내부에서 대화식 shell session을 할 수 있다.<br>
+예) `ls` : 리눅스 환경의 기본 디렉터리들 조회
 > <i>exit</i>을 이용해 빠져나온다.
 
 <br>
@@ -410,7 +427,7 @@ docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}
 - 형식 : `docker tag {image이름}:{tag} {hostname}/{project-id}/{image이름}:{tag}`
 - 예 : ` docker tag node-app:0.1 gcr.io/qwiklabs-gcp-03-5e9a5eaa9d7b/node-app:0.1`
 
-Command Output
+> Command Output
 ```
 REPOSITORY                                     TAG       IMAGE ID       CREATED          SIZE
 gcr.io/qwiklabs-gcp-03-5e9a5eaa9d7b/node-app   0.1       989bdcbdc640   13 minutes ago   884MB
@@ -421,7 +438,7 @@ gcr.io/qwiklabs-gcp-03-5e9a5eaa9d7b/node-app   0.1       989bdcbdc640   13 minut
 docker push gcr.io/qwiklabs-gcp-03-5e9a5eaa9d7b/node-app:0.1
 ```
 
-Command Output
+> Command Output
 ```
 The push refers to repository [gcr.io/qwiklabs-gcp-03-5e9a5eaa9d7b/node-app]
 35d08f23208d: Pushed
@@ -488,6 +505,6 @@ Hello World
 ---
 
 ### Q&A
-1. `Dockerfile`이라는 파일명을 이용해서 빌드를 해야하는 거같은데 도커를 빌드하는데 사용되는 파일명으로 지정된 건가?<br>
+Q. `Dockerfile`이라는 파일명을 이용해서 빌드를 해야하는 거같은데 도커를 빌드하는데 사용되는 파일명으로 지정된 건가?<br>
 A. Yes. Dockerfile은 Docker 데몬에 도커 이미지(Docker Image)를 빌드하기 위한 설정 파일(스크립트)이다.
 > 참고) [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
